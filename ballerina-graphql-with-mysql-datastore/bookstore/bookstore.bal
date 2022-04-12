@@ -32,4 +32,3 @@ service /bookstore on new graphql:Listener(4000) {
     }
 
 }
-
