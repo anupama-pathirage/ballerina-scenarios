@@ -3,7 +3,7 @@
 Create the sample MySQL database and  populate data with the `data.sql` script as follows.
 
 ```
-mysql -uroot -p < /path/to/test.sql
+mysql -uroot -p < /path/to/data.sql
 
 ```
 # Run the code
