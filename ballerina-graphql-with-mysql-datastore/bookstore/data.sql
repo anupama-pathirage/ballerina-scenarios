@@ -1,4 +1,3 @@
-DROP DATABASE bookstore;
 CREATE DATABASE bookstore;
 USE bookstore;
 CREATE TABLE BOOK(book_id INT AUTO_INCREMENT, title VARCHAR(255), published_year INT, author_id INT, PRIMARY KEY (book_id));

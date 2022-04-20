@@ -13,22 +13,18 @@ public type Author record {|
 |};
 
 service /bookstore on new graphql:Listener(4000) {
-
+    
     isolated resource function get bookByName(string title) returns Book[] {
         return getBooks(title);
     }
 
-    resource function get allBooks() returns Book[] {
+    isolated resource function get allBooks() returns Book[] {
         return getBooks(());
     }
 
     remote function addBook(string authorName, string authorCountry, string authorLanguage, string title,
-                                                                        int published_year) returns Book? {
+                                                                        int published_year) returns int {
         int|error ret = addBookData(authorName, authorCountry, authorLanguage, title, published_year);
-        if ret is error {
-            return ();
-        }
-        return getBooks(title)[0];
+        return ret is error ? -1 : ret;
     }
-
 }

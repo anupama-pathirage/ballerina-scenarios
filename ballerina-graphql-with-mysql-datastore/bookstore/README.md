@@ -46,10 +46,10 @@ curl -X POST -H "Content-type: application/json" -d '{ "query": "{allBooks {titl
 
 ## Request 4
 ```
-curl -X POST -H "Content-type: application/json" -d '{ "query": "mutation {addBook(authorName: \"J. K. Rowling\", authorCountry: \"United Kingdom\", authorLanguage: \"English\", title: \"Harry Potter\", published_year: 2007) {title}}" }' 'http://localhost:4000/bookstore'
+curl -X POST -H "Content-type: application/json" -d '{ "query": "mutation {addBook(authorName: \"J. K. Rowling\", authorCountry: \"United Kingdom\", authorLanguage: \"English\", title: \"Harry Potter\", published_year: 2007)}" }' 'http://localhost:4000/bookstore'
 ```
 
 ### Response
 ```json
-{"data":{"addBook":{"title":"Harry Potter"}}}
+{"data":{"addBook":10}}
 ```
