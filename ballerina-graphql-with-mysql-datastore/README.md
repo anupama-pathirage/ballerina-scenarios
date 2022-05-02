@@ -7,7 +7,7 @@ The MySQL database holds data about a book store, and it has book data and autho
 * Retrieve the details of the book by providing the book name
 * Add new books to the database
 
-<img src="images/GraphQL_DB_Scenario.png" alt="drawing" width='250'/>
+<img src="images/GraphQL_DB_Scenario.png"/>
 
 # Set up the Database
 
