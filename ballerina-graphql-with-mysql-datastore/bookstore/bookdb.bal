@@ -10,7 +10,17 @@ type Data record {|
     string language;
 |};
 
-final mysql:Client dbClient = check new ("localhost", "root", "password", "bookstore", 3306);
+type Database record {|
+    string host;
+    string name;
+    int port;
+    string username;
+    string password;
+|};
+
+configurable Database database = ?;
+
+final mysql:Client dbClient = check new (database.host, database.username, database.password, database.name, database.port);
 
 isolated function getBooks(string? bookTitle) returns Book[] {
     sql:ParameterizedQuery query = `SELECT b.title, b.published_year, a.name, a.country,
@@ -19,21 +29,21 @@ isolated function getBooks(string? bookTitle) returns Book[] {
         query = sql:queryConcat(query, ` where b.title=${bookTitle}`);
     }
     stream<Data, error?> resultStream = dbClient->query(query);
-    Book[]?|error books = from Data data in resultStream
+    Book[]?|error books = from var {title, published_year, name, country, language} in resultStream
         select {
-            title: data.title,
-            published_year: data.published_year,
+            title: title,
+            published_year: published_year,
             author: {
-                name: data.name,
-                country: data.country,
-                language: data.language
+                name: name,
+                country: country,
+                language: language
             }
         };
     return (books is error?) ? [] : books;
 }
 
-function addBookData(string authorName, string authorCountry, string authorLanguage, string title, int published_year)
-                                                                                                    returns int|error {
+function addBookData(string authorName, string authorCountry, string authorLanguage,
+                    string title, int published_year) returns int|error {
     int author_id = -1;
     int|sql:Error result = dbClient->queryRow(`SELECT author_id from AUTHOR WHERE name=${authorName}`);
 
