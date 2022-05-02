@@ -13,7 +13,7 @@ public type Author record {|
 |};
 
 service /bookstore on new graphql:Listener(4000) {
-    
+
     isolated resource function get bookByName(string title) returns Book[] {
         return getBooks(title);
     }
