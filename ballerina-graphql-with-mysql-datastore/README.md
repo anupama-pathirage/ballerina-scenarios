@@ -1,4 +1,4 @@
-# Sample usecase
+# Sample use case
 
 In this use case, let’s see how we can implement a GraphQL server using the Ballerina language to expose data in the MySQL database. 
 
