@@ -1,13 +1,19 @@
 # Sample use case
 
-In this use case, let’s see how we can implement a GraphQL server using the Ballerina language to expose data in the MySQL database. 
+The data source to the GraphQL server can be anything such as a database, API, or service that holds data. Also, GraphQL can interact with any combination of data sources. In this use case, let’s see how we can implement a GraphQL server using the Ballerina language to expose data in the MySQL database and data retrieved via another API call.
 
-The MySQL database holds data about a book store, and it has book data and author data. Clients of the book store can do the following operations via the GraphQL server.
+The MySQL database holds data about a book store, and it has book data and author data. Additional information related to  Books is retrieved using  Google Books API. Clients of the book store can do the following operations via the GraphQL server.
 * Retrieve the details of all the books
 * Retrieve the details of the book by providing the book name
 * Add new books to the database
 
-<img src="images/GraphQL_DB_Scenario.png"/>
+The information sources for the above operations are as follows.
+* Title, published year, ISBN number, author  name, author country  - Retrieved from DB
+* Average rating and rating count - Retrieved from Google  Books API filtered using ISBN number of the book.  
+E.g.: https://www.googleapis.com/books/v1/volumes?q=isbn:9781101042472
+
+
+<img src="images/Graphql-With-Ballerina.png"/>
 
 # Set up the Database
 
@@ -57,7 +63,7 @@ This is where the true power of GraphQL comes in. Users can request the exact in
 
 GraphQL query : 
 ```
-{allBooks {title, author{name}}}
+{allBooks {title, author{name}, reviews{ratingsCount, averageRating}}}
 ```
 
 Response :
@@ -66,11 +72,56 @@ Response :
 {
  "data": {
    "allBooks": [
-     { "title": "Pride and Prejudice", "author": { "name": "Jane Austen" } },
-     { "title": "Sense and Sensibility", "author": { "name": "Jane Austen" } },
-     { "title": "Emma", "author": { "name": "Jane Austen" } },
-     { "title": "War and Peace", "author": { "name": "Leo Tolstoy" } },
-     { "title": "Anna Karenina", "author": { "name": "Leo Tolstoy" } }
+     {
+       "title": "Pride and Prejudice",
+       "author": {
+         "name": "Jane Austen"
+       },
+       "reviews": {
+         "ratingsCount": 1,
+         "averageRating": 5
+       }
+     },
+     {
+       "title": "Sense and Sensibility",
+       "author": {
+         "name": "Jane Austen"
+       },
+       "reviews": {
+         "ratingsCount": 3,
+         "averageRating": 4
+       }
+     },
+     {
+       "title": "Emma",
+       "author": {
+         "name": "Jane Austen"
+       },
+       "reviews": {
+         "ratingsCount": null,
+         "averageRating": null
+       }
+     },
+     {
+       "title": "War and Peace",
+       "author": {
+         "name": "Leo Tolstoy"
+       },
+       "reviews": {
+         "ratingsCount": 5,
+         "averageRating": 4
+       }
+     },
+     {
+       "title": "Anna Karenina",
+       "author": {
+         "name": "Leo Tolstoy"
+       },
+       "reviews": {
+         "ratingsCount": 1,
+         "averageRating": 4
+       }
+     }
    ]
  }
 }
@@ -79,7 +130,7 @@ Response :
 CURL command to send the same request:
 
 ```
-curl -X POST -H "Content-type: application/json" -d '{ "query": " {allBooks {title, author{name}}}" }' 'http://localhost:4000/bookstore'
+curl -X POST -H "Content-type: application/json" -d '{ "query": "{allBooks {title, author{name}, reviews{ratingsCount, averageRating}}}" }' 'http://localhost:4000/bookstore'
 ```
 
 ## Sample Request 3:  Get details of books with  input parameter  
@@ -104,7 +155,7 @@ curl -X POST -H "Content-type: application/json" -d '{ "query": "{bookByName(tit
 
 GraphQL Query:
 ```
-mutation {addBook(authorName: "J. K. Rowling", authorCountry: "United Kingdom", authorLanguage: "English", title: "Harry Potter", published_year: 2007)}
+mutation {addBook(authorName: "J. K. Rowling", authorCountry: "United Kingdom", title: "Harry Potter", published_year: 2007, isbn: "9781683836223")}
 ```
 Response:
 
@@ -118,5 +169,5 @@ Response:
 
 CURL Command to send the same request:
 ```
-curl -X POST -H "Content-type: application/json" -d '{ "query": "mutation {addBook(authorName: \"J. K. Rowling\", authorCountry: \"United Kingdom\", authorLanguage: \"English\", title: \"Harry Potter\", published_year: 2007)}" }' 'http://localhost:4000/bookstore'
+curl -X POST -H "Content-type: application/json" -d '{ "query": "mutation {addBook(authorName: \"J. K. Rowling\", authorCountry: \"United Kingdom\", title: \"Harry Potter\", published_year: 2007, isbn: \"9781683836223\")}" }' 'http://localhost:4000/bookstore'
 ```
