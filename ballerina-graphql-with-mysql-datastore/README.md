@@ -17,7 +17,7 @@ E.g.: https://www.googleapis.com/books/v1/volumes?q=isbn:9781101042472
 
 # Set up the Database
 
-Create the sample MySQL database and  populate data with the `data.sql` script as follows.
+Create the sample MySQL database and  populate data with the [data.sql](data.sql) script as follows.
 
 ```
 mysql -uroot -p < /path/to/data.sql
