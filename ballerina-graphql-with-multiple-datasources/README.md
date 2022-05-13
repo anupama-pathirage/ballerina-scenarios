@@ -13,7 +13,7 @@ The information sources for the above operations are as follows.
 E.g.: https://www.googleapis.com/books/v1/volumes?q=isbn:9781101042472
 
 
-<img src="images/Graphql-With-Ballerina.png"/>
+<img src="../images/Graphql-With-Ballerina.png"/>
 
 # Set up the Database
 
