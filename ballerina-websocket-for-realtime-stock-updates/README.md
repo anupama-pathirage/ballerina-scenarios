@@ -4,7 +4,7 @@ The WebSocket-based stock management server is getting stock data feed via WebSo
 
 When the stock management server receives updates to the subscribed symbols, it will broadcast the data to the subscribed clients using a WebSocket connection.
 
-<img src="../images/websocket_exchange_interactions.png" width='250'/>
+<img src="../images/websocket_exchange_interactions.png" width='550' align=center/>
 
 ## Running the applications
 
