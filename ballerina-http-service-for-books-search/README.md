@@ -1,5 +1,8 @@
-#Ballerina HTTP Service for book and movie search.
+# Ballerina HTTP Service for book and movie search
 
+Refer to the scenario below. 
+
+![Untitled Diagram drawio (1)](https://user-images.githubusercontent.com/16300038/173151138-5ccbb92e-387e-499f-ac83-c65613a5543c.png)
 
 
 ## External Calls
