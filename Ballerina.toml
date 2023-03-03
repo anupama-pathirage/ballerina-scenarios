@@ -1,9 +1,0 @@
-[build-options]
-  observabilityIncluded = true
-
-[package]
-  distribution = "2201.0.4"
-  export = ["greetings_mx"]
-  name = "greetings_mx"
-  org = "b7aee"
-
