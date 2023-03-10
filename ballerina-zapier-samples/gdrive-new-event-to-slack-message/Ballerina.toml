@@ -1,0 +1,8 @@
+[package]
+org = "anupama"
+name = "gdrive_new_event_to_slack_message"
+version = "0.1.0"
+distribution = "2201.4.0-20230213-151200-6d175fd1"
+
+[build-options]
+observabilityIncluded = true
