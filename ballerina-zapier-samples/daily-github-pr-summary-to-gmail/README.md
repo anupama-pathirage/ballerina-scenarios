@@ -1,13 +1,13 @@
-# Daily Github PR summary as an email in GMail
+# Daily GitHub PR summary as an email in Gmail
 
-This sample sends a summary of open PRs on everyday as an email.
+This sample sends a summary of open PRs every day as an email.
 
 ## Use case
 This will send a daily email with a summary of GitHub PRs of the configured GitHub repo.
 
 ## Prerequisites
 * GitHub account
-* GMail account
+* Gmail account
 
 ### Setting up Google account tokens
 1. Visit [Google API Console](https://console.developers.google.com), click **Create Project**, and follow the wizard to create a new project.
