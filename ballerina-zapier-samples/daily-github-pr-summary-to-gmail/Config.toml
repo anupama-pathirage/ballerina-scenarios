@@ -1,8 +1,0 @@
-gmailRefreshToken="1//04Twt6SGLL8gKCgYIARAAGAQSNwF-L9Ir9GL5BdOOY6URbrJ79y2llplPqhGhC8sslDQIhuvkrhEz9uVJZ5o6e7DazR3uob2aXOc"
-gmailClientId="130582704174-u15mt5hrvhiseh1qe9csggke1lvjvtck.apps.googleusercontent.com"
-gmailClientSecret="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"
-gmailRecipient="piyumali06@gmail.com"
-
-githubPAT = "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"
-githubOrg = "ballerina-platform"
-githubRepo = "ballerina-lang"
