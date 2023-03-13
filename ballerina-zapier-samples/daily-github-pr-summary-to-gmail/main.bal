@@ -45,14 +45,12 @@ public function main() returns error? {
     }
 }
 
-function transform(PR[] prs) returns gmail:MessageRequest {
-    return {
-        recipient: gmailRecipient,
-        subject: "[Github Summary] Open PR Details",
-        messageBody: constructMailBody(prs),
-        contentType: gmail:TEXT_PLAIN
-    };
-}
+function transform(PR[] prs) returns gmail:MessageRequest => {
+    recipient: gmailRecipient,
+    subject: "[Github Summary] Open PR Details",
+    messageBody: constructMailBody(prs),
+    contentType: gmail:TEXT_PLAIN
+};
 
 function constructMailBody(PR[] prs) returns string {
     string mailBody = string `Total PR Count : ${prs.length()}${"\n"}${"\n"}Title|Created At|Link${"\n"}`;
