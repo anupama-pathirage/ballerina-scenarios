@@ -1,6 +1,5 @@
 import ballerina/http;
 import ballerina/log;
-import ballerina/task;
 import ballerinax/googleapis.gmail;
 
 configurable string gmailRefreshToken = ?;
@@ -34,27 +33,15 @@ final map<string> headers = {
     "Authorization": "token " + githubPAT
 };
 
-class Job {
-
-    *task:Job;
-
-    public function execute() {
-        PR[]|error prs = github->get(string `/repos/${githubOrg}/${githubRepo}/pulls`, headers);
-        if prs is error {
-            log:printError("Error occurred while retrieving PRs", prs);
-            return;
-        }
-        gmail:Message|error msgResponse = gmailClient->sendMessage(transform(prs));
-        if msgResponse is error {
-            log:printError("Error occurred while sending email", msgResponse);
-        }
-    }
-}
-
 public function main() returns error? {
-    _ = check task:scheduleJobRecurByFrequency(new Job(), 86400);
-    while true {
-        //Keep the program running until the user interrupts.
+    PR[]|error prs = github->get(string `/repos/${githubOrg}/${githubRepo}/pulls`, headers);
+    if prs is error {
+        log:printError("Error occurred while retrieving PRs", prs);
+        return;
+    }
+    gmail:Message|error msgResponse = gmailClient->sendMessage(transform(prs));
+    if msgResponse is error {
+        log:printError("Error occurred while sending email", msgResponse);
     }
 }
 

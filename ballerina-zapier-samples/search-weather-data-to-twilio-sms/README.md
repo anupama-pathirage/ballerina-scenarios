@@ -34,3 +34,7 @@ twilioTo = "<TWILIO_TO_NUMBER>"
 
 ## Testing
 - Run the program by executing `bal run` from the root. 
+
+
+## Deployment
+- Schedule a daily cron job to execute it daily on the required time.
