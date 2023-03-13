@@ -1,5 +1,4 @@
 import ballerina/http;
-import ballerina/log;
 import ballerinax/googleapis.gmail;
 
 configurable string gmailRefreshToken = ?;
@@ -34,15 +33,9 @@ final map<string> headers = {
 };
 
 public function main() returns error? {
-    PR[]|error prs = github->get(string `/repos/${githubOrg}/${githubRepo}/pulls`, headers);
-    if prs is error {
-        log:printError("Error occurred while retrieving PRs", prs);
-        return;
-    }
-    gmail:Message|error msgResponse = gmailClient->sendMessage(transform(prs));
-    if msgResponse is error {
-        log:printError("Error occurred while sending email", msgResponse);
-    }
+    PR[] prs = check github->get(string `/repos/${githubOrg}/${githubRepo}/pulls`, headers);
+    _ = check gmailClient->sendMessage(transform(prs));
+
 }
 
 function transform(PR[] prs) returns gmail:MessageRequest => {
