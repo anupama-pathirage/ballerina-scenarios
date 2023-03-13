@@ -34,32 +34,14 @@ type WeatherResponse record {
     City city;
 };
 
-type WeatherForecast record {
-    string city;
-    string country;
-    string date;
-    decimal max_temp;
-    decimal wind_speed;
-};
-
 decimal threasholdTemp = 75;
 decimal threasholdWind = 10;
 
 public function main() returns error? {
-    http:Client httpClient = check new ("https://api.openweathermap.org");
-    WeatherResponse response = check httpClient->get(
-        string `/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${openweatherToken}`);
+    http:Client openWeather = check new ("https://api.openweathermap.org");
+    WeatherResponse weatherResp = check openWeather->/data/\2\.5/forecast.get(lat = lat, lon = lon, units = "imperial", appid = openweatherToken);
 
-    WeatherForecast[] alertedWeather = from var {main, wind, dt_txt} in response?.list
-        where main.temp_max > threasholdTemp && wind.speed > threasholdWind
-        order by main.temp_max descending
-        select {
-            city: response.city.name,
-            country: response.city.country,
-            date: dt_txt,
-            max_temp: main.temp_max,
-            wind_speed: wind.speed
-        };
+    string smsText = string `Weather Alert:${weatherResp.city.name},${weatherResp.city.country}${"\n"}${transform(weatherResp)}`;
 
     twilio:Client twilio = check new ({
         twilioAuth: {
@@ -67,16 +49,11 @@ public function main() returns error? {
             authToken: twilioAuthToken
         }
     });
-    _ = check twilio->sendSms(twilioFrom, twilioTo, transform(alertedWeather));
+    _ = check twilio->sendSms(twilioFrom, twilioTo, smsText);
 }
 
-function transform(WeatherForecast[] alertedWeather) returns string {
-    if alertedWeather.length() == 0 {
-        return "No weather alerts";
-    }
-    string msgBody = string `Weather Alert:${alertedWeather[0].city},${alertedWeather[0].country}${"\n"}`;
-    foreach var {date, max_temp, wind_speed} in alertedWeather {
-        msgBody += string `${date} - T:${max_temp}|W:${wind_speed}${"\n"}`;
-    }
-    return msgBody;
-}
+function transform(WeatherResponse response) returns string => from var {main, wind, dt_txt} in response.list
+    where main.temp_max > threasholdTemp && wind.speed > threasholdWind
+    order by main.temp_max descending
+    select string `${dt_txt} - T:${main.temp_max}|W:${wind.speed}${"\n"}`;
+
