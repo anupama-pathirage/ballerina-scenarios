@@ -2,7 +2,7 @@
 This sample sends a message to the Slack channel for each new file upload in Google Drive.
 
 ## Use case
-Whenever a particular event appears in Google Drive, you will receive a notification in Slack. You have the flexibility to select the event type and the recipients of the notification. 
+Whenever a particular event appears in Google Drive, you will receive a notification in Slack by using this `trigger-based` integration. You have the flexibility to select the event type and the recipients of the notification. 
 
 ## Prerequisites
 * Google account

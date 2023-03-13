@@ -3,7 +3,7 @@
 This sample sends a summary of open PRs every day as an email.
 
 ## Use case
-This will send a daily email with a summary of GitHub PRs of the configured GitHub repo.
+This`schedule-based integration` will send a daily email with a summary of GitHub PRs of the configured GitHub repo.
 
 ## Prerequisites
 * GitHub account

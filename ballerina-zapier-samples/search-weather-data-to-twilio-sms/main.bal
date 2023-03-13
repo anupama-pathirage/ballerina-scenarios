@@ -46,7 +46,6 @@ decimal threasholdTemp = 75;
 decimal threasholdWind = 10;
 
 public function main() returns error? {
-
     http:Client httpClient = check new ("https://api.openweathermap.org");
     WeatherResponse response = check httpClient->get(
         string `/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${openweatherToken}`);
@@ -62,13 +61,13 @@ public function main() returns error? {
             wind_speed: wind.speed
         };
 
-    twilio:Client twilioClient = check new ({
+    twilio:Client twilio = check new ({
         twilioAuth: {
             accountSId: twilioAccountSid,
             authToken: twilioAuthToken
         }
     });
-    _ = check twilioClient->sendSms(twilioFrom, twilioTo, transform(alertedWeather));
+    _ = check twilio->sendSms(twilioFrom, twilioTo, transform(alertedWeather));
 }
 
 function transform(WeatherForecast[] alertedWeather) returns string {

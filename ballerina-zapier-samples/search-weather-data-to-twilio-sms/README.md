@@ -3,7 +3,7 @@
 This sample search weather data for severe weather conditions and sends a Twilio SMS to a specified number.
 
 ## Use case
-This will search the weather forcast data for the given location with the specified temperature and wind threshold and sends a Twilio SMS to a specified number.
+This `search-based integration` will search the weather forcast data for the given location with the specified temperature and wind threshold and sends a Twilio SMS to a specified number.
 
 ## Prerequisites
 * Openweather account
