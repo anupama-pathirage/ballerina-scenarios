@@ -34,16 +34,16 @@ Create a file called `Config.toml` at the root of the project.
 
 ### Config.toml
 ```
-githubUser="<GITHUB_USER>";
+githubUser="<GITHUB_USER>"
 
-twilioAccountSid = "<TWILIO_ACCOUNT_SID>";
-twilioAuthToken = "<TWILIO_AUTH_TOKEN>";
-twilioFrom = "<TWILIO_FROM_NUMBER>";
-twilioTo = "<TWILIO_TO_NUMBER>";
+twilioAccountSid = "<TWILIO_ACCOUNT_SID>"
+twilioAuthToken = "<TWILIO_AUTH_TOKEN>"
+twilioFrom = "<TWILIO_FROM_NUMBER>"
+twilioTo = "<TWILIO_TO_NUMBER>"
 
-trelloApiKey = "<TRELLO_API_KEY>";
-trelloApiToken = "<TRELLO_API_TOKEN>";
-trelloListId = "<TRELLO_LIST_ID>";
+trelloApiKey = "<TRELLO_API_KEY>"
+trelloApiToken = "<TRELLO_API_TOKEN>"
+trelloListId = "<TRELLO_LIST_ID>"
 ```
 
 ## Testing
