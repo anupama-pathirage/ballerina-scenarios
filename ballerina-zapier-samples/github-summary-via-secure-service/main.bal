@@ -13,7 +13,7 @@ type PR record {
     string state;
 };
 
-type OpenPR record {|
+type PRSummary record {|
     string url;
     string title;
 |};
@@ -36,7 +36,7 @@ listener http:Listener securedEP = new (9090,
 );
 
 service / on securedEP {
-    resource function get pr(string status) returns OpenPR[]|error {
+    resource function get pr(string status) returns PRSummary[]|error {
         PR[] prs = check github->/[githubRepo]/pulls(headers);
         return from var {url, title, state} in prs
             where state == status
