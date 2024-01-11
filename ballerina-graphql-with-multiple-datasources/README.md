@@ -20,7 +20,7 @@ E.g.: https://www.googleapis.com/books/v1/volumes?q=isbn:9781101042472
 Create the sample MySQL database and  populate data with the [data.sql](data.sql) script as follows.
 
 ```
-mysql -uroot -p < /path/to/data.sql
+mysql -u root -p < /path/to/data.sql
 
 ```
 # Run the code
